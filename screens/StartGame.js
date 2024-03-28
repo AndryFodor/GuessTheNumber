@@ -7,27 +7,18 @@ export const StartGame = () => {
     }
     return (<>
         <Text style={styles.mock}>Start game screen</Text>
-        <TextInput style={styles.input} placeholder="Num"/>
+        <TextInput style={styles.input} placeholder="Num" maxLength={2} keyboardType="number-pad"/>
         <View style={styles.buttonContainer}>
-            <CustomButton clickHandler={buttonPressed} styles={buttonsStyles} >Reset</CustomButton>
-            <CustomButton styles={buttonsStyles} >Confirm</CustomButton>
+            <CustomButton clickHandler={buttonPressed} >Reset</CustomButton>
+            <CustomButton>Confirm</CustomButton>
         </View>
     </>
     )
 }
 
-const buttonsStyles = StyleSheet.create({
-    customButton: {
-        backgroundColor: '#079f92',
-        borderRadius: 10,
-        width: '30%'
-    },
-    customButton__text: {
-        color: '#d5e8fa',
-        fontSize: 18,
-        paddingHorizontal: 20,
-        paddingVertical: 8,
-        textAlign: 'center'
+const buttonStyle = StyleSheet.create({
+    customButton__outside: {
+        backgroundColor: 'red'
     }
 })
 
