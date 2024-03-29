@@ -1,16 +1,37 @@
-import { StyleSheet, Text, TextInput, View } from "react-native"
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native"
 import { CustomButton } from "../components/CustomButton";
+import { useState } from "react";
 
 export const StartGame = () => {
-    const buttonPressed = () => {
-        console.log("Custom button pressed");
+    const [number, setNumber] = useState('');
+    const resetNumber = () => {
+        setNumber('');
     }
+    const textInputChange = (inputedNumber) => {
+        setNumber(inputedNumber);
+    }
+    const confirmNumber = () => {
+        const regex = /[ -.,]/;
+        if (!regex.test(number) && number) {
+            console.log("Everything is okey");
+        } else {
+            Alert.alert("Invalid number!",
+                "You should enter only positive numbers",
+                [{ text: "OK", style: "destructive", onPress: resetNumber }])
+        }
+    }
+
     return (<>
         <Text style={styles.mock}>Start game screen</Text>
-        <TextInput style={styles.input} placeholder="Num" maxLength={2} keyboardType="number-pad"/>
+        <TextInput
+            style={styles.input}
+            maxLength={2}
+            keyboardType="number-pad"
+            onChangeText={textInputChange}
+            value={number} />
         <View style={styles.buttonContainer}>
-            <CustomButton clickHandler={buttonPressed} >Reset</CustomButton>
-            <CustomButton>Confirm</CustomButton>
+            <CustomButton clickHandler={resetNumber} >Reset</CustomButton>
+            <CustomButton clickHandler={confirmNumber}>Confirm</CustomButton>
         </View>
     </>
     )
@@ -24,8 +45,8 @@ const buttonStyle = StyleSheet.create({
 
 const styles = StyleSheet.create({
     mock: {
-        fontSize: 24,
-        color: 'red'
+        fontSize: 30,
+        color: '#03786e'
     },
     buttonContainer: {
         flexDirection: 'row',

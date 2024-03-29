@@ -21,9 +21,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '10%',
+    marginTop: '30%',
     marginHorizontal: '5%',
-    height: '30%',
+    height: '32%',
     backgroundColor: '#e3edf6a1',
     borderRadius: 10,
     alignItems: 'center',
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   rootScreen: {
     backgroundColor: '#318c84',
     flex: 1,
-    justifyContent: 'center'
   },
   backgroundImage: {
     opacity: 0.2,
