@@ -2,7 +2,7 @@ import { Alert, StyleSheet, Text, TextInput, View } from "react-native"
 import { CustomButton } from "../components/CustomButton";
 import { useState } from "react";
 
-export const StartGame = () => {
+export const StartGame = ({startGame}) => {
     const [number, setNumber] = useState('');
     const resetNumber = () => {
         setNumber('');
@@ -13,7 +13,7 @@ export const StartGame = () => {
     const confirmNumber = () => {
         const regex = /[ -.,]/;
         if (!regex.test(number) && number) {
-            console.log("Everything is okey");
+            startGame(parseInt(number))
         } else {
             Alert.alert("Invalid number!",
                 "You should enter only positive numbers",
@@ -22,7 +22,7 @@ export const StartGame = () => {
     }
 
     return (<>
-        <Text style={styles.mock}>Start game screen</Text>
+        <Text style={styles.mock}>Enter the number</Text>
         <TextInput
             style={styles.input}
             maxLength={2}
