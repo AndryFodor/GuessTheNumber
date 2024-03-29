@@ -1,7 +1,8 @@
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native"
+import { Alert, StyleSheet, TextInput, View } from "react-native"
 import { CustomButton } from "../components/CustomButton";
 import { useState } from "react";
 import { CustomTitle } from "../components/CustomTitle";
+import { colors } from "../utils/colors";
 
 export const StartGame = ({startGame}) => {
     const [number, setNumber] = useState('');
@@ -51,16 +52,16 @@ const styles = StyleSheet.create({
         marginTop: '5%'
     },
     input: {
-        backgroundColor: '#82d8ec66',
+        backgroundColor: colors.primaryBlueOpacity,
         paddingHorizontal: 20,
         paddingVertical: 5,
         marginVertical: 5,
         borderRadius: 20,
-        color: '#079f92',
+        color: colors.green500,
         textAlign: 'center',
         fontSize: 24,
         fontWeight: 'bold',
         borderBottomWidth: 3,
-        borderBottomColor: '#079f92'
+        borderBottomColor: colors.green500
     }
 })

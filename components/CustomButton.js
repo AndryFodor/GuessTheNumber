@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
+import { colors } from "../utils/colors";
 
 export const CustomButton = ({ children, clickHandler, styles }) => {
     const buttonStyles = styles ? {...defaultStyles, ...styles} : defaultStyles;
@@ -6,7 +7,7 @@ export const CustomButton = ({ children, clickHandler, styles }) => {
         <View style={[buttonStyles.customButton, buttonStyles.customButton__outside]}>
             <Pressable
                 onPress={clickHandler}
-                android_ripple={{ color: '#abd2f9' }}
+                android_ripple={{ color: colors.primaryBlue }}
                 style={({ pressed }) => pressed && [defaultStyles.iPhone, defaultStyles.iPhone__outside]} >
                 <Text style={[buttonStyles.customButton__text, buttonStyles.customButton__text__outside]}>{children}</Text>
             </Pressable>
@@ -16,14 +17,14 @@ export const CustomButton = ({ children, clickHandler, styles }) => {
 
 const defaultStyles = StyleSheet.create({
     customButton: {
-        backgroundColor: '#079f92',
+        backgroundColor: colors.green500,
         borderRadius: 12,
         width: '30%',
         // ця властивість використовується для приховування ефекта хвиль з Pressable компонента на цей
         overflow: 'hidden'
     },
     customButton__text: {
-        color: '#d5e8fa',
+        color: colors.primaryWhite,
         fontSize: 18,
         paddingHorizontal: 20,
         paddingVertical: 8,

@@ -4,11 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Game } from './screens/Game';
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import { colors } from './utils/colors';
 
 export default function App() {
   const [guessedNum, setGuessedNum] = useState(-1);
   return (
-    <LinearGradient colors={['#41c5ba', '#e3edf6', '#41c5ba']} style={styles.rootScreen}>
+    <LinearGradient colors={[colors.green500, colors.primaryWhite, colors.green500]} style={styles.rootScreen}>
       <ImageBackground
         source={require('./assets/images/dices.jpg')}
         style={styles.rootScreen}
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     marginTop: '30%',
     marginHorizontal: '5%',
     paddingVertical: '10%',
-    backgroundColor: '#e3edf6a1',
+    backgroundColor: colors.primaryWhiteOpacity,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3
   },
   rootScreen: {
-    backgroundColor: '#318c84',
+    backgroundColor: colors.green600,
     flex: 1,
   },
   backgroundImage: {
