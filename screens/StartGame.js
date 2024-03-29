@@ -1,6 +1,7 @@
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native"
 import { CustomButton } from "../components/CustomButton";
 import { useState } from "react";
+import { CustomTitle } from "../components/CustomTitle";
 
 export const StartGame = ({startGame}) => {
     const [number, setNumber] = useState('');
@@ -22,7 +23,7 @@ export const StartGame = ({startGame}) => {
     }
 
     return (<>
-        <Text style={styles.mock}>Enter the number</Text>
+        <CustomTitle>Enter the number</CustomTitle>
         <TextInput
             style={styles.input}
             maxLength={2}
@@ -44,10 +45,6 @@ const buttonStyle = StyleSheet.create({
 })
 
 const styles = StyleSheet.create({
-    mock: {
-        fontSize: 30,
-        color: '#03786e'
-    },
     buttonContainer: {
         flexDirection: 'row',
         gap: 10,
