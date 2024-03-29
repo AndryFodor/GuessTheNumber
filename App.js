@@ -18,7 +18,7 @@ export default function App() {
       >
         <SafeAreaView style={styles.container}>
           {guessedNum >= 0
-            ? <Game guessedNum={guessedNum} beckHandler={setGuessedNum.bind(this, -1)} />
+            ? <Game guessedNum={guessedNum} restart={setGuessedNum.bind(this, -1)}/>
             : <StartGame startGame={setGuessedNum} />}
         </SafeAreaView>
       </ImageBackground>
