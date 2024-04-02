@@ -4,7 +4,7 @@ import { CustomTitle } from "../components/CustomTitle"
 import { useEffect, useState } from "react"
 import { NumberCont } from "../components/NumberCont"
 import { GameOver } from "./GameOver"
-import {Entypo} from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
 
 let minBoundary = 0, maxBoundary = 100;
 export const Game = ({ guessedNum, restart, changeTitle }) => {
@@ -18,16 +18,22 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
     let initialGuess = generateRandomNumber(minBoundary, maxBoundary, guessedNum)
 
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
-    const [winner, setWinner] = useState(false);
-    const [attemptsNumber, setAttemptsNumber] = useState(-1);
+    const [winner, setWinner] = useState('');
+    const [attemptsNumber, setAttemptsNumber] = useState(0);
     useEffect(() => {
         changeTitle("Opponent`s guess")
     }, [])
     useEffect(() => {
         console.log("Interval = ", minBoundary, maxBoundary, "\nNumber = ", guessedNum);
+        console.log("Attemmpts conut = ", attemptsNumber);
         setAttemptsNumber(prevState => prevState + 1);
         if (currentGuess === guessedNum) {
-            setWinner(true);
+            setWinner('Victory');
+            minBoundary = 0;
+            maxBoundary = 100;
+        }
+        if (attemptsNumber === 5) {
+            setWinner('Defeat')
             minBoundary = 0;
             maxBoundary = 100;
         }
@@ -44,15 +50,15 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
     }
 
     if (winner) {
-        return <GameOver attemptsNumber={attemptsNumber} changeTitle={changeTitle} guessedNum={guessedNum} restart={restart} />
+        return <GameOver winner={winner} attemptsNumber={attemptsNumber-1} changeTitle={changeTitle} guessedNum={guessedNum} restart={restart} />
     }
     return (
         <>
             <NumberCont>{currentGuess}</NumberCont>
             <CustomTitle>Higher or lower?</CustomTitle>
             <View style={styles.buttons}>
-                <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'lower')}><Entypo name="minus" size={40}/></CustomButton>
-                <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'higher')}><Entypo name="plus" size={40}/></CustomButton>
+                <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'lower')}><Entypo name="minus" size={40} /></CustomButton>
+                <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'higher')}><Entypo name="plus" size={40} /></CustomButton>
             </View>
         </>
     )
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
     customButton__text__outside: {
         fontSize: 40,
         fontWeight: 'bold',
-        paddingHorizontal: '2%'        
+        paddingHorizontal: '2%'
     },
 })
 const buttonStyles = { customButton__text__outside: styles.customButton__text__outside, customButton__outside: styles.customButton__outside }
