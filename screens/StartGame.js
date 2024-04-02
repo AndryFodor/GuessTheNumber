@@ -24,7 +24,7 @@ export const StartGame = ({startGame}) => {
     }
 
     return (<>
-        <CustomTitle>Enter the number</CustomTitle>
+        <CustomTitle>Enter a number</CustomTitle>
         <TextInput
             style={styles.input}
             maxLength={2}

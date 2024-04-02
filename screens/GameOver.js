@@ -1,14 +1,21 @@
-import { StyleSheet, Text } from "react-native"
+import { useEffect } from "react"
+import { StyleSheet, Text, View } from "react-native"
+import { CustomButton } from "../components/CustomButton";
 
-export const GameOver = () => {
+export const GameOver = ({changeTitle, guessedNum, attemptsNumber, restart}) => {
+    useEffect(() => {
+        changeTitle("Game over")
+    }, []);
     return (
-        <Text style={styles.mock}>Game over screen</Text>
+        <View>
+            <Text>You are winner!</Text>
+            <Text>The number you have guessed is {guessedNum}</Text>
+            <Text>You used {attemptsNumber} attempts.</Text>
+            <CustomButton clickHandler={restart}>Try again?</CustomButton>
+        </View>
     )
 } 
 
 const styles = StyleSheet.create({
-    mock: {
-        fontSize: 24,
-        color: 'red'
-    }
+    
 })

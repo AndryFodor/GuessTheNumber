@@ -10,9 +10,8 @@ export const CustomTitle = ({children, styles}) => {
 
 const defaultStyles = StyleSheet.create({
     title: {
-        fontSize: 30,
+        fontSize: 24,
         color: colors.green700,
-        fontWeight: 'bold',
         margin: '3%'
     },
     title__outside: {}

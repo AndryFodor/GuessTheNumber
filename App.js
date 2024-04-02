@@ -1,4 +1,4 @@
-import { ImageBackground, SafeAreaView, StyleSheet, View } from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet, Text } from 'react-native';
 import { StartGame } from './screens/StartGame';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Game } from './screens/Game';
@@ -8,6 +8,11 @@ import { colors } from './utils/colors';
 
 export default function App() {
   const [guessedNum, setGuessedNum] = useState(-1);
+  const [titleText, setTitleText] = useState('Guess My Number');
+  const restart = () => {
+    setGuessedNum(-1);
+    setTitleText('Guess My Number');
+  }
   return (
     <LinearGradient colors={[colors.green500, colors.primaryWhite, colors.green500]} style={styles.rootScreen}>
       <ImageBackground
@@ -16,10 +21,11 @@ export default function App() {
         resizeMode='cover'
         imageStyle={styles.backgroundImage}
       >
+        {titleText && <Text style={styles.mainTitle}>{titleText}</Text> }
         <SafeAreaView style={styles.container}>
           {guessedNum >= 0
-            ? <Game guessedNum={guessedNum} restart={setGuessedNum.bind(this, -1)}/>
-            : <StartGame startGame={setGuessedNum} />}
+            ? <Game guessedNum={guessedNum} restart={restart} changeTitle = {setTitleText}/>
+            : <StartGame startGame={setGuessedNum}/>}
         </SafeAreaView>
       </ImageBackground>
       <StatusBar style='light' />
@@ -29,9 +35,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '30%',
+    marginTop: '10%',
     marginHorizontal: '5%',
-    paddingVertical: '10%',
+    paddingVertical: '5%',
     backgroundColor: colors.primaryWhiteOpacity,
     borderRadius: 10,
     alignItems: 'center',
@@ -48,6 +54,16 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     opacity: 0.2,
+  },
+  mainTitle: {
+    marginTop: '20%',
+    color: colors.primaryWhite,
+    fontSize: 30,
+    borderWidth: 1,
+    borderColor: colors.primaryWhiteOpacity,
+    alignSelf: 'center',
+    paddingHorizontal: '5%',
+    borderRadius: 20
   }
 });
 
