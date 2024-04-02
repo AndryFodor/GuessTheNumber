@@ -24,7 +24,7 @@ export const StartGame = ({startGame}) => {
     }
 
     return (<>
-        <CustomTitle>Enter a number</CustomTitle>
+        <CustomTitle styles={styles.title}>Enter a number</CustomTitle>
         <TextInput
             style={styles.input}
             maxLength={2}
@@ -63,5 +63,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         borderBottomWidth: 3,
         borderBottomColor: colors.green500
+    },
+    title: {
+        fontWeight: 'bold'
     }
 })

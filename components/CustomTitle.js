@@ -2,9 +2,8 @@ import { StyleSheet, Text } from "react-native"
 import { colors } from "../utils/colors";
 
 export const CustomTitle = ({children, styles}) => {
-    const currentStyles = {...defaultStyles, ...styles};
     return (
-        <Text style={[currentStyles.title, currentStyles.title__outside]}>{children}</Text>
+        <Text style={[defaultStyles.title, styles]}>{children}</Text>
     )
 } 
 
@@ -13,6 +12,5 @@ const defaultStyles = StyleSheet.create({
         fontSize: 24,
         color: colors.green700,
         margin: '3%'
-    },
-    title__outside: {}
+    }
 })
