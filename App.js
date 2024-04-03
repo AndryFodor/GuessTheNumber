@@ -1,4 +1,4 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { StartGame } from './screens/StartGame';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Game } from './screens/Game';
@@ -13,6 +13,15 @@ export default function App() {
     setGuessedNum(-1);
     setTitleText('Guess My Number');
   }
+  const {width, height} = useWindowDimensions();
+  // встановити властивості для елемента можна таким чином завдяки useWindowDimensions, не використовуючи при цьому StyleSheet. Деякі можливості втрачаються, але для вирішення поставленої задачі - адаптивних розмірів, це ідеальне рішення проблеми
+  let titleTopMargin = {marginTop: height > 400 ? '20%' : '7%'}
+  let mainContentContainet = {
+    marginTop: height > 400 ? '10%' : '5%',
+    paddingVertical: height > 400 ? '5%' : '2%'
+  }
+
+  // console.log(height);
   return (
     <LinearGradient colors={[colors.green500, colors.primaryWhite, colors.green500]} style={styles.rootScreen}>
       <ImageBackground
@@ -21,8 +30,8 @@ export default function App() {
         resizeMode='cover'
         imageStyle={styles.backgroundImage}
       >
-        {titleText && <Text style={styles.mainTitle}>{titleText}</Text>}
-        <SafeAreaView style={styles.container}>
+        {titleText && <Text style={[styles.mainTitle, titleTopMargin]}>{titleText}</Text>}
+        <SafeAreaView style={[styles.container, mainContentContainet]}>
           {guessedNum >= 0
             ? <Game guessedNum={guessedNum} restart={restart} changeTitle={setTitleText} />
             : <StartGame startGame={setGuessedNum} />}
@@ -35,9 +44,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '10%',
     marginHorizontal: '5%',
-    paddingVertical: '5%',
     backgroundColor: colors.primaryWhiteOpacity,
     borderRadius: 10,
     alignItems: 'center',
@@ -56,7 +63,8 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   mainTitle: {
-    marginTop: '20%',
+    // Якщо спробувати тут використати Dimensions API, то виникне пробелма, яка полягає в тому, що визначення розмірів виконується лише при першому редерингу компонента. Щоб уникнути це, можна спористатися хуком useWindowDimensions. При обертанні пристроя між горизонтальним та вертикальним положенням цей хук спрацьовуватиме кожний раз. Таким чином в нас кожний раз будуть актуальні розміри екрана. Таким чином тут не треба встановлювати відступи і розміри, якщо вони мають змінюватися в різних орієнтаціях.
+    // marginTop: '7%',
     maxWidth: '75%',
     width: 400,
     // Два верхні стилі працюють таким чином, що користувач встановлює максимально допустиму ширину відповідного блоку. Якщо передана далі ширина в абсолютних одиницях або ширина самого екрану буде більша, ніж максимально допустима, ця властивість не дозволить елементу бути більшим все рівно, ніж 80%. Це робить UI більш адаптивним 
