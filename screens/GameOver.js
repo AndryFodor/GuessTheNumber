@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, StyleSheet, View } from "react-native"
 import { CustomButton } from "../components/CustomButton";
 import { colors } from "../utils/colors";
 import { CustomTitle } from "../components/CustomTitle";
@@ -22,7 +22,7 @@ export const GameOver = ({ changeTitle, guessedNum, attemptsNumber, restart, win
                 <CustomTitle styles={{fontSize: 14, marginBottom: 0}}>The number it should has guessed is</CustomTitle>
                 <CustomTitle styles={{margin: 0, fontWeight: 'bold'}}>{guessedNum}</CustomTitle>
                 <CustomTitle styles={{fontSize: 18}}>You used {attemptsNumber} attempts</CustomTitle>
-                {winner === 'Victory' ? null : <CustomTitle styles={{color: 'red', fontSize: 14, marginTop: 0}}>(it`s max possible attempts)</CustomTitle>}
+                {winner === 'Victory' ? null : <CustomTitle styles={{color: 'red', fontSize: 14, marginTop: 0}}>(5 is max possible attempts)</CustomTitle>}
                 <CustomButton clickHandler={restart} styles={{ customButton__outside: { width: '100%' } }}>Try again?</CustomButton>
             </View>
         </View>

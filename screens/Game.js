@@ -1,10 +1,12 @@
-import { Alert, StyleSheet, View } from "react-native"
+import { Alert, FlatList, StyleSheet, View } from "react-native"
 import { CustomButton } from "../components/CustomButton"
 import { CustomTitle } from "../components/CustomTitle"
 import { useEffect, useState } from "react"
 import { NumberCont } from "../components/NumberCont"
 import { GameOver } from "./GameOver"
 import { Entypo } from '@expo/vector-icons'
+import { colors } from "../utils/colors"
+import { GuessItem } from "../components/GuessItem"
 
 let minBoundary = 0, maxBoundary = 100;
 export const Game = ({ guessedNum, restart, changeTitle }) => {
@@ -20,19 +22,20 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
     const [winner, setWinner] = useState('');
     const [attemptsNumber, setAttemptsNumber] = useState(0);
+    const [numberLog, setNumberLog] = useState([]);
+    let numberLogLength = numberLog.length;
     useEffect(() => {
-        changeTitle("Opponent`s guess")
+        changeTitle("Opponent`s guess");
     }, [])
     useEffect(() => {
-        console.log("Interval = ", minBoundary, maxBoundary, "\nNumber = ", guessedNum);
-        console.log("Attemmpts conut = ", attemptsNumber);
         setAttemptsNumber(prevState => prevState + 1);
+        setNumberLog(prev => [currentGuess, ...prev])
         if (currentGuess === guessedNum) {
             setWinner('Victory');
             minBoundary = 0;
             maxBoundary = 100;
         }
-        if (attemptsNumber === 5) {
+        if (attemptsNumber > 5) {
             setWinner('Defeat')
             minBoundary = 0;
             maxBoundary = 100;
@@ -50,7 +53,7 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
     }
 
     if (winner) {
-        return <GameOver winner={winner} attemptsNumber={attemptsNumber-1} changeTitle={changeTitle} guessedNum={guessedNum} restart={restart} />
+        return <GameOver winner={winner} attemptsNumber={attemptsNumber - 1} changeTitle={changeTitle} guessedNum={guessedNum} restart={restart} />
     }
     return (
         <>
@@ -60,11 +63,23 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
                 <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'lower')}><Entypo name="minus" size={40} /></CustomButton>
                 <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'higher')}><Entypo name="plus" size={40} /></CustomButton>
             </View>
+            <View style={styles.listContainer}>
+                <FlatList data={numberLog} renderItem={el => <GuessItem guessNumber={numberLogLength - el.index - 1} guessValue={el.item}/>} />
+            </View>
         </>
     )
 }
 
 const styles = StyleSheet.create({
+    listContainer: {
+        height: '40%',
+        borderLeftColor: colors.green600,
+        borderLeftWidth: 3,
+        marginHorizontal: '10%',
+        paddingLeft: 5,
+        marginTop: '5%',
+        alignSelf: 'flex-start'
+    },
     buttons: {
         flexDirection: 'row',
         marginTop: '5%',
@@ -77,7 +92,7 @@ const styles = StyleSheet.create({
     customButton__text__outside: {
         fontSize: 40,
         fontWeight: 'bold',
-        paddingHorizontal: '2%'
-    },
+        paddingHorizontal: '2%',
+    }
 })
 const buttonStyles = { customButton__text__outside: styles.customButton__text__outside, customButton__outside: styles.customButton__outside }

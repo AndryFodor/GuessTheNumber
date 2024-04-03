@@ -21,11 +21,11 @@ export default function App() {
         resizeMode='cover'
         imageStyle={styles.backgroundImage}
       >
-        {titleText && <Text style={styles.mainTitle}>{titleText}</Text> }
+        {titleText && <Text style={styles.mainTitle}>{titleText}</Text>}
         <SafeAreaView style={styles.container}>
           {guessedNum >= 0
-            ? <Game guessedNum={guessedNum} restart={restart} changeTitle = {setTitleText}/>
-            : <StartGame startGame={setGuessedNum}/>}
+            ? <Game guessedNum={guessedNum} restart={restart} changeTitle={setTitleText} />
+            : <StartGame startGame={setGuessedNum} />}
         </SafeAreaView>
       </ImageBackground>
       <StatusBar style='light' />
