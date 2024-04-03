@@ -17,8 +17,9 @@ export default function App() {
   // встановити властивості для елемента можна таким чином завдяки useWindowDimensions, не використовуючи при цьому StyleSheet. Деякі можливості втрачаються, але для вирішення поставленої задачі - адаптивних розмірів, це ідеальне рішення проблеми
   let titleTopMargin = {marginTop: height > 400 ? '20%' : '7%'}
   let mainContentContainet = {
-    marginTop: height > 400 ? '10%' : '5%',
-    paddingVertical: height > 400 ? '5%' : '2%'
+    marginTop: height > width ? '10%' : '5%',
+    paddingVertical: height > width ? '5%' : '2%',
+    marginHorizontal: height > width ? '5%' : '10%'
   }
 
   // console.log(height);
@@ -44,7 +45,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: '5%',
     backgroundColor: colors.primaryWhiteOpacity,
     borderRadius: 10,
     alignItems: 'center',
