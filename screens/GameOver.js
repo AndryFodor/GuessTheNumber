@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Image, StyleSheet, View } from "react-native"
+import { Dimensions, Image, StyleSheet, View } from "react-native"
 import { CustomButton } from "../components/CustomButton";
 import { colors } from "../utils/colors";
 import { CustomTitle } from "../components/CustomTitle";
@@ -29,11 +29,13 @@ export const GameOver = ({ changeTitle, guessedNum, attemptsNumber, restart, win
     )
 }
 
+const deviceWidth = Dimensions.get('window').width > 390;
+
 const styles = StyleSheet.create({
     imageContainer: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
+        width: deviceWidth ? 200 : 140,
+        height: deviceWidth ? 200 : 140,
+        borderRadius: deviceWidth ? 100 : 70,
         borderColor: colors.green700,
         borderWidth: 3,
         overflow: 'hidden',

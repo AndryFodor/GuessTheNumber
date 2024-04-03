@@ -57,7 +57,11 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     marginTop: '20%',
+    maxWidth: '75%',
+    width: 400,
+    // Два верхні стилі працюють таким чином, що користувач встановлює максимально допустиму ширину відповідного блоку. Якщо передана далі ширина в абсолютних одиницях або ширина самого екрану буде більша, ніж максимально допустима, ця властивість не дозволить елементу бути більшим все рівно, ніж 80%. Це робить UI більш адаптивним 
     color: colors.primaryWhite,
+    textAlign: 'center',
     fontSize: 30,
     borderWidth: 1,
     borderColor: colors.primaryWhiteOpacity,

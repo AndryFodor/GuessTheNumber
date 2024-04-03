@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Dimensions, StyleSheet, Text, View } from "react-native"
 import { colors } from "../utils/colors"
 
 export const NumberCont = ({children, style}) => {
@@ -10,16 +10,21 @@ export const NumberCont = ({children, style}) => {
     )
 }
 
+// Dimensions АРІ допомагає реалізовувати адаптивну і відповідальну верстру додатку. З її допомогою можна отримати основні 4 розмірності, які використовуються як розміри елементів. Таким чином за допомогою різноманітних махінацій можна встановлювати конкретні розміни ширини, висоти елементів для тих чи інших розмірів екрану пристроя
+const deviceWidth = Dimensions.get('window').width;
+const deviceFontScale = Dimensions.get('window').fontScale;
+
+
 const defaultStyles = StyleSheet.create({
     container: {
         borderWidth: 4, 
         borderColor: colors.primaryBlue,
-        paddingVertical: '4%',
-        paddingHorizontal: '7%',
+        paddingVertical: deviceWidth > 390 ? '4%' : '1.5%',
+        paddingHorizontal: deviceWidth > 390 ? '7%' : '3%',
         borderRadius: 56,
     },
     numberText: {
-        fontSize: 60,
+        fontSize: deviceFontScale*60,
         fontWeight: 'bold',
         color: colors.primaryWhite
     },
