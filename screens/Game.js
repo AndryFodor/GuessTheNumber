@@ -1,4 +1,4 @@
-import { Alert, FlatList, StyleSheet, View } from "react-native"
+import { Alert, FlatList, StyleSheet, View, useWindowDimensions } from "react-native"
 import { CustomButton } from "../components/CustomButton"
 import { CustomTitle } from "../components/CustomTitle"
 import { useEffect, useState } from "react"
@@ -17,6 +17,7 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
             return randomNum
         }
     }
+    let { width, height } = useWindowDimensions()
     let initialGuess = generateRandomNumber(minBoundary, maxBoundary, guessedNum)
 
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
@@ -51,23 +52,39 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
         else maxBoundary = currentGuess;
         setCurrentGuess(generateRandomNumber(minBoundary, maxBoundary, currentGuess));
     }
+    let content = <>
+        <NumberCont>{currentGuess}</NumberCont>
+        <CustomTitle>Higher or lower?</CustomTitle>
+        <View style={styles.buttons}>
+            <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'lower')}><Entypo name="minus" size={40} /></CustomButton>
+            <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'higher')}><Entypo name="plus" size={40} /></CustomButton>
+        </View>
+        <View style={[styles.listContainer, { height: width > height ? '20%' : '40%' }]}>
+            <FlatList data={numberLog} renderItem={el => <GuessItem guessNumber={numberLogLength - el.index - 1} guessValue={el.item} />} />
+        </View>
+    </>
+
+    if (width > height) {
+        content = <>
+            <View style={styles.lContainer}>
+                <View style={styles.numAndButtons}>
+                    <NumberCont style={{ container__outside: { paddingVertical: '1%', paddingHorizontal: '9%' } }}>{currentGuess}</NumberCont>
+                    <View style={styles.lButtons}>
+                        <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'lower')}><Entypo name="minus" size={40} /></CustomButton>
+                        <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'higher')}><Entypo name="plus" size={40} /></CustomButton>
+                    </View>
+                </View>
+                <View style={[styles.lListContainer, {height: height*0.45}]}>
+                    <FlatList data={numberLog} renderItem={el => <GuessItem guessNumber={numberLogLength - el.index - 1} guessValue={el.item} />} />
+                </View>
+            </View>
+        </>
+    }
 
     if (winner) {
         return <GameOver winner={winner} attemptsNumber={attemptsNumber - 1} changeTitle={changeTitle} guessedNum={guessedNum} restart={restart} />
     }
-    return (
-        <>
-            <NumberCont>{currentGuess}</NumberCont>
-            <CustomTitle>Higher or lower?</CustomTitle>
-            <View style={styles.buttons}>
-                <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'lower')}><Entypo name="minus" size={40} /></CustomButton>
-                <CustomButton styles={buttonStyles} clickHandler={nextGuessHandler.bind(this, 'higher')}><Entypo name="plus" size={40} /></CustomButton>
-            </View>
-            <View style={styles.listContainer}>
-                <FlatList data={numberLog} renderItem={el => <GuessItem guessNumber={numberLogLength - el.index - 1} guessValue={el.item}/>} />
-            </View>
-        </>
-    )
+    return <>{content}</>
 }
 
 const styles = StyleSheet.create({
@@ -93,6 +110,28 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold',
         paddingHorizontal: '2%',
+    },
+    //////////////////////landscape mode/////////////////////////////
+    lContainer: {
+        width: '90%',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    lButtons: {
+        gap: 15
+    },
+    numAndButtons: {
+        width: '43%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    lListContainer: {
+        borderLeftColor: colors.green600,
+        borderLeftWidth: 3,
+        marginHorizontal: '6%',
+        paddingLeft: 5,
+        alignSelf: 'flex-start'
     }
 })
 const buttonStyles = { customButton__text__outside: styles.customButton__text__outside, customButton__outside: styles.customButton__outside }

@@ -1,4 +1,4 @@
-import { Alert, KeyboardAvoidingView, ScrollView, StyleSheet, TextInput, View, useWindowDimensions } from "react-native"
+import { Alert, KeyboardAvoidingView, StyleSheet, TextInput, View, useWindowDimensions } from "react-native"
 import { CustomButton } from "../components/CustomButton";
 import { useState } from "react";
 import { CustomTitle } from "../components/CustomTitle";

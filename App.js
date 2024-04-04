@@ -1,4 +1,4 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text, useWindowDimensions } from 'react-native';
+import { ImageBackground, Platform, SafeAreaView, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { StartGame } from './screens/StartGame';
 import { LinearGradient } from 'expo-linear-gradient'
 import { Game } from './screens/Game';
@@ -71,7 +71,9 @@ const styles = StyleSheet.create({
     color: colors.primaryWhite,
     textAlign: 'center',
     fontSize: 30,
-    borderWidth: 1,
+    // хоча react native використовується для того, аби писати один код для різноманітних платформ, проте він дає можливість задавати різні стилі для різних поатформ. Для цього можна використати Platform АРІ, за допомогою якого можна визначати тип платформи, і в залежності від того задавати ті чи інші стилі. В прикладі нижче для андроїда в заголовків не буде бордера, а для афйонів - буде з шириною й піксель
+    // borderWidth: Platform.OS === 'android' ? 0 : 1,
+    borderWidth: Platform.select({ios: 1, android: 0}),
     borderColor: colors.primaryWhiteOpacity,
     alignSelf: 'center',
     paddingHorizontal: '5%',

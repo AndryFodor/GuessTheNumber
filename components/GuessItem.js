@@ -1,14 +1,27 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, useWindowDimensions } from "react-native";
 import { colors } from "../utils/colors";
 import { CustomTitle } from "./CustomTitle";
 
-export const GuessItem = ({ guessNumber, guessValue }) => <View style={styles.itemContainer}>
-    <CustomTitle># {guessNumber}</CustomTitle>
-    <View style={styles.innerContainer}>
-        <CustomTitle styles={{ fontSize: 16, marginRight: 0 }}>Opponent`s guess is </CustomTitle>
-        <CustomTitle styles={{ fontWeight: 'bold', marginLeft: 0 }}>{guessValue}</CustomTitle>
-    </View>
-</View>
+export const GuessItem = ({ guessNumber, guessValue }) => {
+    let {width, height} = useWindowDimensions();
+    let landscapeStyles = {}
+    if(width > height){
+        landscapeStyles = {
+            width: 'auto',
+            padding: 0,
+             
+        }
+    }
+    return (
+        <View style={[styles.itemContainer, landscapeStyles]}>
+            <CustomTitle># {guessNumber}</CustomTitle>
+            <View style={styles.innerContainer}>
+                <CustomTitle styles={{ fontSize: 16, marginRight: 0 }}>Opponent`s guess is </CustomTitle>
+                <CustomTitle styles={{ fontWeight: 'bold', marginLeft: 0 }}>{guessValue}</CustomTitle>
+            </View>
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     innerContainer: {
