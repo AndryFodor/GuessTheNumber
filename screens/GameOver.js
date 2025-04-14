@@ -3,6 +3,7 @@ import { Dimensions, Image, StyleSheet, View, useWindowDimensions } from "react-
 import { CustomButton } from "../components/CustomButton";
 import { colors } from "../utils/colors";
 import { CustomTitle } from "../components/CustomTitle";
+import { AVAILABLE_ATTEMPTS } from "../utils/constants";
 
 export const GameOver = ({ changeTitle, guessedNum, attemptsNumber, restart, winner }) => {
     let imgPath = require('../assets/images/success.jpg');
@@ -22,7 +23,7 @@ export const GameOver = ({ changeTitle, guessedNum, attemptsNumber, restart, win
             <CustomTitle styles={{ fontSize: 14, marginBottom: 0 }}>The number it should has guessed is</CustomTitle>
             <CustomTitle styles={{ margin: 0, fontWeight: 'bold' }}>{guessedNum}</CustomTitle>
             <CustomTitle styles={{ fontSize: 18 }}>You used {attemptsNumber} attempts</CustomTitle>
-            {winner === 'Victory' ? null : <CustomTitle styles={{ color: 'red', fontSize: 14, marginTop: 0 }}>(5 is max possible attempts)</CustomTitle>}
+            {winner === 'Victory' ? null : <CustomTitle styles={{ color: 'red', fontSize: 14, marginTop: 0 }}>({AVAILABLE_ATTEMPTS} is max possible attempts)</CustomTitle>}
             <CustomButton clickHandler={restart} styles={{ customButton__outside: { width: '100%' } }}>Try again?</CustomButton>
         </View>
     </View>
@@ -38,7 +39,7 @@ export const GameOver = ({ changeTitle, guessedNum, attemptsNumber, restart, win
             </View>
             <View style={styles.rightText}>
                 <CustomTitle styles={{ fontSize: 18 }}>You used {attemptsNumber} attempts</CustomTitle>
-                {winner === 'Victory' ? null : <CustomTitle styles={{ color: 'red', fontSize: 14, textAlign: 'center' }}>(5 is max possible attempts)</CustomTitle>}
+                {winner === 'Victory' ? null : <CustomTitle styles={{ color: 'red', fontSize: 14, textAlign: 'center' }}>({AVAILABLE_ATTEMPTS} is max possible attempts)</CustomTitle>}
                 <CustomButton clickHandler={restart} styles={{ customButton__outside: { width: '100%' } }}>Try again?</CustomButton>
             </View>
         </View>

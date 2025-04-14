@@ -7,6 +7,7 @@ import { GameOver } from "./GameOver"
 import { Entypo } from '@expo/vector-icons'
 import { colors } from "../utils/colors"
 import { GuessItem } from "../components/GuessItem"
+import { AVAILABLE_ATTEMPTS } from "../utils/constants"
 
 let minBoundary = 0, maxBoundary = 100;
 export const Game = ({ guessedNum, restart, changeTitle }) => {
@@ -36,7 +37,7 @@ export const Game = ({ guessedNum, restart, changeTitle }) => {
             minBoundary = 0;
             maxBoundary = 100;
         }
-        if (attemptsNumber > 5) {
+        if (attemptsNumber > AVAILABLE_ATTEMPTS) {
             setWinner('Defeat')
             minBoundary = 0;
             maxBoundary = 100;

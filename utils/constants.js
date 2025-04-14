@@ -1,0 +1,1 @@
+export const AVAILABLE_ATTEMPTS = 8;
